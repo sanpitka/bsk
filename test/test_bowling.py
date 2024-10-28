@@ -30,6 +30,7 @@ class TestBowlingGame(unittest.TestCase):
         game.add_frame(Frame(8, 1))
         f = Frame(2,6)
         game.add_frame(f)
+
         self.assertEqual(f, game.get_frame_at(9))
 
     def test_game_created_11_frames(self):
