@@ -19,20 +19,14 @@ class BowlingGame:
 
     def calculate_score(self) -> int:
         score = 0
-        spare_flag = False
-        strike_flag = False
-        for frame in self._frames:
-            if spare_flag:
-                score += frame.get_first_throw()
-                spare_flag = False
-            if strike_flag:
-                score += frame.get_first_throw()
-                score += frame.get_second_throw()
-                strike_flag = False
+        for i,frame in enumerate(self._frames):
             if frame.is_spare():
-                spare_flag = True
+                frame.set_bonus(self._frames[i+1].get_first_throw())
             if frame.is_strike():
-                strike_flag = True
+                if self._frames[i+1].is_strike():
+                    frame.set_bonus(self._frames[i+1].get_first_throw()+self._frames[i+1].get_second_throw()+self._frames[i+2].get_first_throw())
+                else:
+                    frame.set_bonus(self._frames[i+1].get_first_throw()+self._frames[i+1].get_second_throw())
             score += frame.score()
         return score
 
